@@ -1,0 +1,118 @@
+/*
+ * @file Practice.cpp
+ * @author Стеценко О. М. , гр. 515
+ * @date 22 червня 2020
+ * @brief Літня практика
+ *
+ * Програма, яка переводить суму, задану у вигляді числа з плаваючою комою, в текст українською мовою. Завдання 1
+*/
+
+#include <stdio.h>
+#include <string.h>
+#include <locale.h>
+#include <math.h> 
+#define _CRT_SECURE_NO_WARNINGS 
+
+int main(void) {
+    setlocale(LC_ALL, "ukr");
+
+    int numbers[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    char* digits[20][12] = {   
+    "нуль", "одна", "двi", "три", "чотири",
+    "п'ять", "шiсть", "сiм", "вiсiм","дев'ять",
+    "десять" };
+
+    char* str_grn[20][11] = {
+    "гривень", "гривня", "гривнi", "гривнi", "гривнi",
+    "гривень", "гривень", "гривень", "гривень","гривень",
+    "гривень" };
+
+    char* str_kop[20][11] = {
+    "копiйок", "копiйка", "копiйки", "копiйки", "копiйки",
+    "копiйок", "копiйок", "копiйок", "копiйок","копiйок",
+     "копiйок" };
+
+    char* big_digits[20][9] = {
+    "одинадцять", "дванадцять", "тринадцять", "чотирнадцять",
+    "п'ятнадцять", "шiстнадцять", "сiмнадцять", "вiсiмнадцять","дев'ятнадцять"};
+
+    char* bigger_digits[12][8] = {
+    "двадцять", "тридцять", "сорок", "п'ятдесят",
+    "шiстдесят", "сiмдесят", "вiсiмдесят","дев'яносто" };
+
+    while (0 < 1) {
+        float ff;
+        float tmp;
+        float kop;
+
+        printf("Введiть число: ");
+        scanf_s("%f", &ff);
+
+        modff(ff, &tmp);
+
+        int n = tmp;
+
+        if (ff <= 10) {
+            printf("%s", digits[0][n]);
+            printf("%s", " ");
+            printf("%s", str_grn[0][n]);
+            printf("%s", " ");
+            kop = 10 * (ff - n);
+        }
+        else {
+            if (ff < 20) {
+                printf("%s", big_digits[0][n - 10]);
+                printf("%s", " гривень ");
+            }
+            else {
+                kop = 100 * (ff - n);
+                if (ff < 100) {
+                    float j = ff / 10;
+                    float h;
+                    modff(j, &h);
+                    int k = (int)h;
+                    int g = ff - 10 * k;
+                    printf("%s", bigger_digits[0][k - 2]);
+                    printf("%s", " ");
+                    if (g != 0) {
+                        printf("%s", digits[0][g]);
+                        printf("%s", " ");
+                    }
+                    printf("%s", str_grn[0][g]);
+                    printf("%s", " ");
+                }
+            }
+        }
+        n = (int)kop;
+        if (kop <= 10) {
+            printf("%s", digits[0][n]);
+            printf("%s", " ");
+            printf("%s\n", str_kop[0][n]);
+        }
+        else {
+            if (kop < 20) {
+                printf("%s", big_digits[0][n - 10]);
+                printf("%s", " копiйок");
+            }
+            else {
+                if (kop < 100) {
+                    float j = kop / 10;
+                    float h;
+                    modff(j, &h);
+                    int k = (int)h;
+                    int g = kop - 10 * k;
+                    printf("%s", bigger_digits[0][k - 2]);
+                    printf("%s", " ");
+                    if (g != 0) {
+                        printf("%s", digits[0][g]);
+                        printf("%s", " ");
+                    }
+                    printf("%s\n", str_kop[0][g]);
+                }
+            }
+        }
+    }
+   
+    return 0;
+}
